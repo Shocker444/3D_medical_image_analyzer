@@ -20,13 +20,13 @@ def plot_mesh(volume, threshold=0.5):
 
     return fig
 
-def plot_slices(img):
+def plot_slices(img, key1, key2):
     # Axis selection
-    axis = st.radio("Select viewing axis", options=[0, 1, 2], format_func=lambda x: f"Axis {x}", horizontal=True)
+    axis = st.radio("Select viewing axis", options=[0, 1, 2], format_func=lambda x: f"Axis {x}", horizontal=True, key=key1)
 
     # Slider for slice index
     max_index = img.shape[axis] - 1
-    slice_idx = st.slider(f"Select slice along axis {axis}", 0, max_index, max_index // 2)
+    slice_idx = st.slider(f"Select slice along axis {axis}", 0, max_index, max_index // 2, key=key2)
 
     # Extract the slice
     if axis == 0:

@@ -1,16 +1,10 @@
 import os
 
 import streamlit as st
-import pandas as pd
-import numpy as np
-from skimage import io, measure
-import matplotlib.pyplot as plt
-#import plotly.graph_objects as go
-import tensorflow as tf
-import keras
-from keras import layers
+from skimage import io
 
-from plot_utils import plot_mesh, plot_slices
+from plot_utils import  plot_slices
+from inference import predictVol
 
 st.set_page_config(layout='wide')
 
@@ -30,12 +24,20 @@ if uploaded_file is not None:
         f.write(uploaded_file.getbuffer())
 
     img = io.imread(file_path)
+    st.write('[INFO] Generating liver segmentation mask...')
+    predicted_mask = predictVol(img)
 
     col1, col2, col3 = st.columns(3)
     
     with col1:
-        fig = plot_slices(img)
+        fig = plot_slices(img, 'Vol_radio', 'Vol_slider')
         st.pyplot(fig)
+
+    with col2:
+        fig2 = plot_slices(predicted_mask, 'Mask_radio', 'Mask_slider')
+        st.pyplot(fig2)
+
+    
 
     
 
