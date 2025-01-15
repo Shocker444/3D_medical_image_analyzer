@@ -20,7 +20,7 @@ def plot_mesh(volume, threshold=0.5):
 
     return fig
 
-def plot_slices(img, key1, key2):
+def plot_slices(img, key1, key2, title):
     # Axis selection
     axis = st.radio("Select viewing axis", options=[0, 1, 2], format_func=lambda x: f"Axis {x}", horizontal=True, key=key1)
 
@@ -40,6 +40,7 @@ def plot_slices(img, key1, key2):
     st.write(f"Showing slice {slice_idx} along axis {axis}")
     plt.figure(figsize=(4, 4))
     plt.imshow(slice_data.T, cmap="gray", origin="lower")
+    plt.title(title)
     plt.axis('off')
 
     return plt
